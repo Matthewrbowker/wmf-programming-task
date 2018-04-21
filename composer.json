@@ -1,0 +1,15 @@
+{
+    "name": "matthew/wmf-programming-task",
+    "description": "WMF Programming Task",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Matthew Bowker",
+            "email": "matthewrbowker.bugs@gmail.com"
+        }
+    ],
+    "require": {
+        "twbs/bootstrap": "3.3.7",
+        "twig/twig": "^1.35.3"
+    }
+}
