@@ -1,5 +1,14 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-I EXIST
+    <H1>Category Tool by Matthewrbowker</H1>
+    <form action="" method="get">
+        <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" class="form-control" id="category" name="category" placeholder="Category">
+        </div>
+        <input type="submit" class="btn btn-btn-success" value="Submit" />
+        <input type="reset" class="btn btn-btn-error" value="Reset" />
+
+    </form>
 {% endblock %}

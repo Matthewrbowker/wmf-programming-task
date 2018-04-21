@@ -5,12 +5,13 @@
     "authors": [
         {
             "name": "Matthew Bowker",
-            "email": "matthewrbowker.bugs@gmail.com"
+            "email": "github@matthewbowker.net"
         }
     ],
     "require": {
         "twbs/bootstrap": "3.3.7",
         "twig/twig": "^1.35.3",
-        "davechild/textstatistics": "1.*"
+        "davechild/textstatistics": "1.*",
+        "addwiki/mediawiki-api-base": "~2.0"
     }
 }

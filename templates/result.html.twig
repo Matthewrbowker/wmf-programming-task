@@ -1,5 +1,18 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-{{ category }}
+<H1>Reading score for {{ category }}</H1>
+<a href="{{ path }}" class="btn btn-info">&lt; Return</a>
+    <table>
+        {% for article,score in data %}
+        <tr>
+            <td>
+                {{ article }}
+            </td>
+            <td>
+                {{ score }}
+            </td>
+        </tr>
+            {% endfor %}
+    </table>
 {% endblock %}
