@@ -32,7 +32,7 @@ class results
         }
 
         // Sort the results array by value.
-        arsort($this->results);
+        asort($this->results);
     }
 
     /**
