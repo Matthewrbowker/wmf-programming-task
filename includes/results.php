@@ -2,34 +2,44 @@
 
 class results
 {
-    private $results;
-    private $api;
-    private $textStatistics;
+    private $results;        // Final array of results we've parsed.  Key is article
+                             // name, value is reading ease.
 
-    private function loadData() {
-        $data = $this->api->getData();
+    /**
+     * results constructor
+     *
+     * @param ApiInterface $api API Interface Object
+     * @param \DaveChild\TextStatistics\TextStatistics $textStatistics Text Statistics Object
+     */
+    public function __construct(ApiInterface $api, DaveChild\TextStatistics\TextStatistics $textStatistics) {
+        // Start by pulling the data.  Note that $data will be defined as either
+        // an array or NULL.
+        $data = $api->getData();
 
         if(sizeof($data) > 0) {
+            // If $data is an array, begin parsing.
             foreach ($data as $key => $value) {
-                $this->results[$key] = $this->textStatistics->flesch_kincaid_reading_ease($value);
+                // $key is the article title, $value is the heading.
+
+                // Similar format, key is article title, value is the Flesch–Kincaid
+                // Reading Ease as determined by the DaveChild/TextStatistics library
+                $this->results[$key] = $textStatistics->flesch_kincaid_reading_ease($value);
             }
         }
         else {
+            // If something goes screwy, set us up with an empty array in the results.
             $this->results = [];
         }
 
+        // Sort the results array by value.
         arsort($this->results);
-
     }
 
-    public function __construct($category, ApiInterface $api, DaveChild\TextStatistics\TextStatistics $textStatistics) {
-        $this->api = $api;
-        $this->textStatistics = $textStatistics;
-
-        $this->loadData();
-
-    }
-
+    /**
+     * Accessor for the results.
+     *
+     * @return array Results
+     */
     public function getResults() {
         return $this->results;
     }

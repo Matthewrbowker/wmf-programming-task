@@ -1,5 +1,9 @@
 {% extends "base.html.twig" %}
 
+{% block title %}
+    {{ category }} &middot; Category Tool by Matthewrbowker
+{% endblock %}
+
 {% block body %}
 <H1>Reading score for {{ category }}</H1>
     {% if error != "" %}
