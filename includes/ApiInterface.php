@@ -12,7 +12,7 @@ class ApiInterface
 
     private function retrievePages($category) {
         $this->pages = [];
-        $request = new SimpleRequest("query", ["list"=>"categorymembers", "cmtype"=>"page","cmtitle"=>"Category:$category", "cmlimit"=>50]);
+        $request = new SimpleRequest("query", ["list"=>"categorymembers", "cmnamespace"=>0, "cmtype"=>"page","cmtitle"=>"Category:$category", "cmlimit"=>50]);
         try{
             $response = $this->api->getRequest( $request );
         }
@@ -28,17 +28,27 @@ class ApiInterface
     }
 
     private function retrieveSummaries() {
-        $request = new SimpleRequest("query", ["prop"=>"extracts", "exintro"=>1, "titles"=>join("|", $this->pages), "explaintext"=>1]);
 
         if (sizeof($this->pages) <= 0) {
             return;
         }
 
-        $response = $this->api->getRequest($request);
+        $pagesSplit = array_chunk($this->pages, 20, true);
 
-        foreach($response["query"]["pages"] as $page) {
-            if (!isset($page["extract"])) continue;
-            $this->data[$page["title"]] =  $page["extract"];
+        foreach($pagesSplit as $titles) {
+            $titlesString = join("|", $titles);
+            $queryParameters = ["prop"=>"extracts", "exintro"=>1, "titles"=>$titlesString, "explaintext"=>1];
+            $request = new SimpleRequest("query", $queryParameters);
+
+            $response = $this->api->getRequest($request);
+
+
+
+            foreach($response["query"]["pages"] as $page) {
+                if (!isset($page["extract"])) continue;
+                $this->data[$page["title"]] =  $page["extract"];
+            }
+
         }
 
         //https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&titles=Therion|Matthew_(given_name)&explaintext

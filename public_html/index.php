@@ -20,7 +20,7 @@ $error = "";
 if (isset($_GET["category"]) && $_GET["category"] !== null && $_GET["category"] !== "") {
     $cat = ucfirst($_GET["category"]);
 
-    $cat = htmlentities($cat);
+    $data = [];
 
     try {
         $api = new apiInterface($cat);
@@ -28,13 +28,13 @@ if (isset($_GET["category"]) && $_GET["category"] !== null && $_GET["category"] 
         $results = new results($cat, $api, $ts);
 
         $data =$results->getResults();
+
+        if (sizeof($data) <1) {
+            $error = "No results found!";
+        }
     }
     catch(Exception $e) {
-        $error = "An exception has occured in this application: {$e->getMessage()}<br />Please check server logs for more information.";
-    }
-
-    if (sizeof($data) <1) {
-        $error = "No results found!";
+        $error = "An exception has occured in this application: {$e->getMessage()}. Please check server logs for more information.";
     }
 
     $template->render("result.html.twig", ["category"=>$cat, "data"=>$data, "path"=>$_SERVER["PHP_SELF"], "error"=>$error]);

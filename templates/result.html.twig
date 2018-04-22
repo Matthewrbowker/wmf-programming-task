@@ -6,11 +6,19 @@
         <div class="alert alert-danger">{{ error }}</div>
     {% else %}
     <a href="{{ path }}" class="btn btn-info">&lt; Return</a>
-    <table>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                Article Title
+            </th>
+            <th>
+                <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests" target="_blank">Flesch–Kincaid Reading Ease</a>
+            </th>
+        </tr>
         {% for article,score in data %}
         <tr>
             <td>
-                {{ article }}
+                <a href="https://en.wikipedia.org/wiki/{{ article|replace({"": "_"}) }}" target="_blank">{{ article }}</a>
             </td>
             <td>
                 {{ score }}
