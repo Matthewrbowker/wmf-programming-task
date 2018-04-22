@@ -30,6 +30,10 @@ class ApiInterface
     private function retrieveSummaries() {
         $request = new SimpleRequest("query", ["prop"=>"extracts", "exintro"=>1, "titles"=>join("|", $this->pages), "explaintext"=>1]);
 
+        if (sizeof($this->pages) <= 0) {
+            return;
+        }
+
         $response = $this->api->getRequest($request);
 
         foreach($response["query"]["pages"] as $page) {
@@ -41,8 +45,6 @@ class ApiInterface
     }
 
     public function __construct($category, $endpoint = "http://en.wikipedia.org/w/api.php") {
-
-
         $this->api = MediawikiApi::newFromApiEndpoint( $endpoint);
         $this->error = null;
 

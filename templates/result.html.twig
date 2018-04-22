@@ -2,7 +2,10 @@
 
 {% block body %}
 <H1>Reading score for {{ category }}</H1>
-<a href="{{ path }}" class="btn btn-info">&lt; Return</a>
+    {% if error != "" %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% else %}
+    <a href="{{ path }}" class="btn btn-info">&lt; Return</a>
     <table>
         {% for article,score in data %}
         <tr>
@@ -15,4 +18,6 @@
         </tr>
             {% endfor %}
     </table>
+    {% endif %}
+    <a href="{{ path }}" class="btn btn-info">&lt; Return</a>
 {% endblock %}

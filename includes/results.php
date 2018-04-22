@@ -9,8 +9,13 @@ class results
     private function loadData() {
         $data = $this->api->getData();
 
-        foreach ($data as $key => $value) {
-            $this->results[$key] = $this->textStatistics->flesch_kincaid_reading_ease($value);
+        if(sizeof($data) > 0) {
+            foreach ($data as $key => $value) {
+                $this->results[$key] = $this->textStatistics->flesch_kincaid_reading_ease($value);
+            }
+        }
+        else {
+            $this->results = [];
         }
 
         arsort($this->results);
