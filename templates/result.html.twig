@@ -22,7 +22,7 @@
         {% for article,score in data %}
         <tr>
             <td>
-                <a href="https://en.wikipedia.org/wiki/{{ article|replace({"": "_"}) }}" target="_blank">{{ article }}</a>
+                <a href="https://en.wikipedia.org/wiki/{{ article|replace({" ": "_"}) }}" target="_blank">{{ article }}</a>
             </td>
             <td>
                 {{ score }}
